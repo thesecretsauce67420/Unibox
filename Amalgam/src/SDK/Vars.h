@@ -1144,7 +1144,7 @@ I dont think this is a good idea to disable simulations completely:
 				Scout = 1 << 0, Sniper = 1 << 1, Soldier = 1 << 2, Demoman = 1 << 3, Medic = 1 << 4, Heavy = 1 << 5, Pyro = 1 << 6, Spy = 1 << 7, Engineer = 1 << 8);
 			CVar(RandomClassInterval, "Random class interval", FloatRange_t(3.f, 5.f), SLIDER_MIN | SLIDER_PRECISION, 0.5f, 30.f, 0.5f, "%g - %gm");
 			CVar(ForceClass, "Autojoin class", 0);
-			CVar(ChangeNameOnJoin, "Change Name On Autojoin", false)
+			CVar(ChangeNameOnJoin, "Change Name On Autojoin", false);
 			CVar(JoinSpam, "Join spam", false);
 			CVar(AutoBanJoiner, "Auto-ban joiner", false);
 			CVar(Micspam, "Micspam", false);

@@ -16,7 +16,7 @@ std::string GetRandomLine(const std::vector<std::string>& lines)
 // beta namechanger
 void ChangeNameOnJoin() {
 	std::vector<std::string> lines;
-	if (CMisc::LoadLines("namechange.txt", lines, "UNIBOX IS THE BEST.\nGLORY TO UNIBOX.\nTHE SPECTRE.\nSPECTRE SPECTRE SPECTRE"))
+	if (F::Misc.LoadLines("namechange.txt", lines, "THE SPECTRE\nSPECTRE SPECTRE SPECTRE"))
 	{
     	std::string randomLine = GetRandomLine(lines);
 		auto pNetChan = reinterpret_cast<CNetChannel*>(I::EngineClient->GetNetChannelInfo());

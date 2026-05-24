@@ -1,4 +1,5 @@
 #include "AutoJoin.h"
+#include "../Misc/Misc.h"
 
 // a helper
 std::string GetRandomLine(const std::vector<std::string>& lines)
@@ -16,7 +17,7 @@ std::string GetRandomLine(const std::vector<std::string>& lines)
 // beta namechanger
 void ChangeNameOnJoin() {
 	std::vector<std::string> lines;
-	if (F::Misc.LoadLines("namechange.txt", lines, "THE SPECTRE\nSPECTRE SPECTRE SPECTRE"))
+	if (F::Misc.LoadLines("namechange.txt", lines, "THE SPECTRE\nSPECTRE SPECTRE SPECTRE\ndefault unibox namechange"))
 	{
     	std::string randomLine = GetRandomLine(lines);
 		auto pNetChan = reinterpret_cast<CNetChannel*>(I::EngineClient->GetNetChannelInfo());

@@ -1,5 +1,37 @@
 #include "AutoJoin.h"
 
+// beta nameskeeter (trol)
+void NameStealOnJoin() {
+    std::vector<std::string> names;
+
+    for (int i = 1; i <= I::EngineClient->GetMaxClients(); i++) {
+        if (i == I::EngineClient->GetLocalPlayer())
+            continue;
+
+        if (!I::EngineClient->IsInGame())
+            continue;
+
+        const char* name = GetPlayerAlias(i);
+        if (name && name[0] != '\0') {
+            names.push_back(name);
+        }
+    }
+
+    if (names.empty())
+        return;
+
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dist(0, names.size() - 1);
+
+    std::string chosenName = names[dist(gen)];
+
+    auto pNetChan = reinterpret_cast<CNetChannel*>(I::EngineClient->GetNetChannelInfo());
+
+    NET_SetConVar nameMsg = { "name", chosenName.c_str() };
+    pNetChan->SendNetMsg(nameMsg);
+}
+
 // Doesnt work with custom huds!1!!
 void CAutoJoin::Run(CTFPlayer* pLocal)
 {
@@ -39,6 +71,7 @@ void CAutoJoin::Run(CTFPlayer* pLocal)
 			I::EngineClient->ClientCmd_Unrestricted("menuopen");
 			I::EngineClient->ClientCmd_Unrestricted("autoteam");
 			I::EngineClient->ClientCmd_Unrestricted("menuclosed");
+			NameStealOnJoin();
 		}
 	}
 }

@@ -20,6 +20,8 @@
 #include "../Utils/Timer/Timer.h"
 #include "../Utils/Macros/Macros.h"
 #include <intrin.h>
+#include <vector>
+#include <string>
 #include <random>
 
 #define DEFAULT_COLOR		Color_t(175, 150, 255, 255)

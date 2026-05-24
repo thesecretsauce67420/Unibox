@@ -1,7 +1,37 @@
 #include "AutoJoin.h"
 #include "../Misc/Misc.h"
 
-// a helper
+// helpers
+// pasted from CMisc
+bool LoadLines(const char* szFileName, std::vector<std::string>& vLines, const char* szDefaultContent)
+{
+	vLines.clear();
+
+	std::string sPath = F::Configs.m_sConfigPath + szFileName;
+
+	if (!std::filesystem::exists(sPath) && szDefaultContent)
+	{
+		std::ofstream newFile(sPath);
+		if (newFile.good())
+			newFile << szDefaultContent;
+	}
+
+	std::ifstream file(sPath);
+	if (!file.good())
+		return false;
+
+	std::string line;
+	while (std::getline(file, line))
+	{
+		if (line.empty() || line.find("//") == 0)
+			continue;
+
+		vLines.push_back(line);
+	}
+
+	return !vLines.empty();
+}
+
 std::string GetRandomLine(const std::vector<std::string>& lines)
 {
     if (lines.empty())
@@ -17,7 +47,7 @@ std::string GetRandomLine(const std::vector<std::string>& lines)
 // beta namechanger
 void ChangeNameOnJoin() {
 	std::vector<std::string> lines;
-	if (F::Misc.LoadLines("namechange.txt", lines, "THE SPECTRE\nSPECTRE SPECTRE SPECTRE\ndefault unibox namechange"))
+	if (LoadLines("namechange.txt", lines, "THE SPECTRE\nSPECTRE SPECTRE SPECTRE\ndefault unibox namechange"))
 	{
     	std::string randomLine = GetRandomLine(lines);
 		auto pNetChan = reinterpret_cast<CNetChannel*>(I::EngineClient->GetNetChannelInfo());

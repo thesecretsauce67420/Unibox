@@ -1,5 +1,6 @@
 #include "AutoJoin.h"
 #include "../Misc/Misc.h"
+#include "../Configs/Configs.h"
 
 // helpers
 // pasted from CMisc

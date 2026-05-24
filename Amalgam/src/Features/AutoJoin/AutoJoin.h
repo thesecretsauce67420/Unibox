@@ -1,5 +1,6 @@
 #pragma once
 #include "../../SDK/SDK.h"
+#include "../Players/PlayerUtils.h"
 
 class CAutoJoin
 {

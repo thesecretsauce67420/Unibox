@@ -90,7 +90,7 @@ void CAutoJoin::Run(CTFPlayer* pLocal)
 
 			I::EngineClient->ClientCmd_Unrestricted(std::format("joinclass {}", m_aClassNames[iDesiredClass - 1]).c_str());
 			I::EngineClient->ClientCmd_Unrestricted("menuclosed");
-			if (Vars::Misc::Automation::ChangeNameOnJoin) ChangeNameOnJoin();
+			if (Vars::Misc::Automation::ChangeNameOnJoin.Value) ChangeNameOnJoin();
 		}
 		else
 		{

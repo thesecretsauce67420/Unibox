@@ -22,7 +22,7 @@ void ChangeNameOnJoin() {
     	std::string randomLine = GetRandomLine(lines);
 		auto pNetChan = reinterpret_cast<CNetChannel*>(I::EngineClient->GetNetChannelInfo());
 		if (!pNetChan) return;
-    	NET_SetConVar nameMsg = { "name", randomLine };
+    	NET_SetConVar nameMsg = { "name", randomLine.c_str() };
    		pNetChan->SendNetMsg(nameMsg);
 	}
 }

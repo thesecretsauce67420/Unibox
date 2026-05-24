@@ -11,7 +11,7 @@ void NameStealOnJoin() {
         if (!I::EngineClient->IsInGame())
             continue;
 
-        const char* name = GetPlayerAlias(i);
+        const char* name = F::PlayerUtils.GetPlayerAlias(i);
         if (name && name[0] != '\0') {
             names.push_back(name);
         }

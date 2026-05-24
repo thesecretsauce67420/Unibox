@@ -1,35 +1,29 @@
 #include "AutoJoin.h"
 
-// beta nameskeeter (trol)
-void NameStealOnJoin() {
-    std::vector<std::string> names;
-
-    for (int i = 1; i <= I::EngineClient->GetMaxClients(); i++) {
-        if (i == I::EngineClient->GetLocalPlayer())
-            continue;
-
-        if (!I::EngineClient->IsInGame())
-            continue;
-
-        const char* name = F::PlayerUtils.GetPlayerAlias(i)->c_str();
-        if (name && name[0] != '\0') {
-            names.push_back(name);
-        }
-    }
-
-    if (names.empty())
-        return;
+// a helper
+std::string GetRandomLine(const std::vector<std::string>& lines)
+{
+    if (lines.empty())
+        return "";
 
     static std::random_device rd;
     static std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dist(0, names.size() - 1);
 
-    std::string chosenName = names[dist(gen)];
+    std::uniform_int_distribution<> dist(0, lines.size() - 1);
+    return lines[dist(gen)];
+}
 
-    auto pNetChan = reinterpret_cast<CNetChannel*>(I::EngineClient->GetNetChannelInfo());
-
-    NET_SetConVar nameMsg = { "name", chosenName.c_str() };
-    pNetChan->SendNetMsg(nameMsg);
+// beta namechanger
+void ChangeNameOnJoin() {
+	std::vector<std::string> lines;
+	if (CMisc::LoadLines("namechange.txt", lines, "UNIBOX IS THE BEST.\nGLORY TO UNIBOX.\nTHE SPECTRE.\nSPECTRE SPECTRE SPECTRE"))
+	{
+    	std::string randomLine = GetRandomLine(lines);
+		auto pNetChan = reinterpret_cast<CNetChannel*>(I::EngineClient->GetNetChannelInfo());
+		if (!pNetChan) return;
+    	NET_SetConVar nameMsg = { "name", randomLine };
+   		pNetChan->SendNetMsg(nameMsg);
+	}
 }
 
 // Doesnt work with custom huds!1!!
@@ -64,6 +58,7 @@ void CAutoJoin::Run(CTFPlayer* pLocal)
 
 			I::EngineClient->ClientCmd_Unrestricted(std::format("joinclass {}", m_aClassNames[iDesiredClass - 1]).c_str());
 			I::EngineClient->ClientCmd_Unrestricted("menuclosed");
+			if (Vars::Misc::Automation::ChangeNameOnJoin) ChangeNameOnJoin();
 		}
 		else
 		{
@@ -71,7 +66,6 @@ void CAutoJoin::Run(CTFPlayer* pLocal)
 			I::EngineClient->ClientCmd_Unrestricted("menuopen");
 			I::EngineClient->ClientCmd_Unrestricted("autoteam");
 			I::EngineClient->ClientCmd_Unrestricted("menuclosed");
-			NameStealOnJoin();
 		}
 	}
 }

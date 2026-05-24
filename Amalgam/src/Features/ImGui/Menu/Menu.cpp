@@ -1802,6 +1802,7 @@ void CMenu::MenuMisc(int iTab)
 					}
 					PopTransparent();
 					FDropdown(Vars::Misc::Automation::ForceClass, { "Off", "Scout", "Soldier", "Pyro", "Demoman", "Heavy", "Engineer", "Medic", "Sniper", "Spy" }, {0,1,3,7,4,6,9,5,2,8}, FDropdownEnum::Left);
+					FToggle(Vars::Misc::Automation::ChangeNameOnJoin, FToggleEnum::Right);
 					FDropdown(Vars::Misc::Movement::BotUtils::WeaponSlot, FDropdownEnum::Right);
 					FDropdown(Vars::Misc::Movement::BotUtils::AutoScope);
 					PushTransparent(!Vars::Misc::Movement::BotUtils::AutoScope.Value);

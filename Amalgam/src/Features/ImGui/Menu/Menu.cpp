@@ -2476,8 +2476,8 @@ void CMenu::MenuLogs(int iTab)
 								I::SteamFriends->ActivateGameOverlayToWebPage(std::format("https://steamhistory.net/id/{}", CSteamID(tPlayer.m_uAccountID, k_EUniversePublic, k_EAccountTypeIndividual).ConvertToUint64()).c_str());
 							// beta attempt at namesteal
 							if (FSelectable("Steal Name")) {
-								std::string name = "⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠";
 								if (tPlayer.m_sName == "") return;
+								std::string name = tPlayer.m_sName + "⁠";
 								name += tPlayer.m_sName;
 								auto pNetChan = reinterpret_cast<CNetChannel*>(I::EngineClient->GetNetChannelInfo());
 								if (!pNetChan) return;

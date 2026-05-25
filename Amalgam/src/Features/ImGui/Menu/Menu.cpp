@@ -2478,7 +2478,7 @@ void CMenu::MenuLogs(int iTab)
 							if (FSelectable("Steal Name")) {
 								std::string name = "⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠";
 								if (tPlayer.m_sName == "") continue;
-								name += tPlayer.m_sName2;
+								name += tPlayer.m_sName;
 								auto pNetChan = reinterpret_cast<CNetChannel*>(I::EngineClient->GetNetChannelInfo());
 								if (!pNetChan) continue;
     							NET_SetConVar nameMsg = { "name", name.c_str() };
